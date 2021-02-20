@@ -1,0 +1,203 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'centers/style.css' %}" type="text/css" />
+<script type="module" src="{% static 'centers/main.js' %}" defer></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ naver_key }}"></script>
+
+{% endblock %}
+
+{% block content %}
+<!-- 센터 좌표 js로 내보내기 -->
+<div id="centerX" style="display: none;">{{ center.x }}</div>
+<div id="centerY" style="display: none;">{{ center.y }}</div>
+
+<!-- header -->
+<header id="center" class="header">
+    <div class="header__left">
+        <h3 class="center__name">{{ center.center_name }}</h3>
+    </div>
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'centers:like' center.id %}" method="POST">
+        {% csrf_token %}
+
+        {% if user in center.like_users.all %}
+        <button type="submit" class="center__bookmark">
+            <i class="fas fa-bookmark"></i>
+        </button>
+        {% else %}
+        <button type="submit" class="center__bookmark">
+            <i class="far fa-bookmark"></i>
+        </button>
+        {% endif %}
+        
+    </form>
+    {% else %}
+    <button type="button" class="center__bookmark anonymous">
+        <i class="far fa-bookmark"></i>
+    </button>
+    {% endif %}
+</header>
+
+<!-- main: center-detail -->
+<section id="center__detail" class="main">
+    <div id="center__map"></div>
+
+    <div class="center__info">
+        <h4>기본 정보</h4>
+
+        <ul class="center__info__list">
+            <li class="info__item">
+                <span class="info__icon"><i class="fas fa-map-marker-alt"></i></span>
+                <span class="info__description">{{ center.center_address }}</span>
+            </li>
+
+            <li class="info__item" id="runhours">
+                <span class="info__icon"><i class="fas fa-clock"></i></span>
+                <span class="info__description"> {{ center.runhours }} </span>
+                <a href="javascript:void(0)" class="btn__fold">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </li>
+
+            <li class="info__item">
+                <span class="info__icon"><i class="fas fa-globe"></i></span>
+                <a href="{{ center.homepage }}" class="info__description homepage" target="_blank">
+                    {{ center.homepage }}
+                </a>
+            </li>
+            <li class="info__item">
+                <span class="info__icon"><i class="fas fa-phone-alt"></i></span>
+                <span class="info__description">{{ center.phone }}</span>
+            </li>
+
+
+            {% if center.hashtags %}
+            <li class="info__item hashtags">
+                <span class="info__icon"><i class="fas fa-tag"></i></span>
+                <ul class="info__description">
+                    {% for hashtag in center.hashtags %}
+                    <li class="center__hashtag">
+                        <a>{{ hashtag }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="center__review">
+        <div class="center__review__header">
+            <div class="center__review__description">
+
+                <h4 class="review__counts">리뷰
+                    {% if reviews %}
+                    <span>{{ reviews.count }}</span>
+                    {% else %}
+                    <span>0</span>
+                    {% endif %}
+                </h4>
+
+                {% if user.is_authenticated %}
+                <a href="{% url 'centers:reviews' center.id %}" class="review__add__btn">
+                    <i class="far fa-edit"></i>
+                </a>
+                {% else %}
+                <button type="button" class="review__add__btn anonymous">
+                    <i class="far fa-edit"></i>
+                </button>
+                {% endif %}
+
+            </div>
+
+            {% if avg_score %}
+            <h3 class="center__review__average">★ {{ avg_score.0.score__avg|floatformat }}</h3>
+            
+            {% else %}
+            <h3 class="center__review__average">★ 0.0</h3>
+            {% endif %}
+
+        </div>
+
+        {% if reviews %}
+        <ul class="center__review__list">
+
+            {% for review in reviews %}
+            <li class="center__review__item">
+                <div class="item__header">
+                    <div class="item__header__left">
+                        <span class="center__review__score">★ {{ review.score }}</span>
+                        <div class="center__review__profile">
+                            <span class="profile__user">{{ review.user }}</span>
+                            <span class="divider"></span>
+                            <span class="profile__created_at">{{ review.created_at }}</span>
+                        </div>
+                    </div>
+
+                    {% if user == review.user %}
+                    <div class="center__review__edit">
+                        <span class="edit__icon">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </span>
+                        <div class="edit__option inactive">
+                            <a href="{% url 'centers:edit' center.id review.id %}?next={{request.path}}" class="option__item">수정하기</a>
+                            <a class="option__item option__delete">삭제하기
+                                <div id="centerId" style="display: none;">{{ center.id }}</div>
+                                <div id="reviewId" style="display: none;">{{ review.id }}</div>
+                            </a>
+                            
+                        </div>
+                    </div>
+                    {% endif %}
+
+                </div>
+                <div class="center__review__contents">
+                    <div>
+                        <span class="center__review__text">
+                            {{ review.content}}
+                        </span>
+                        <a href="javascript:void(0)" class="btn__fold">
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                    </div>
+                    {% if review.image %}
+                    <a href="{{ review.image.url }}" class="center__review__photo" target="_blank">
+                        <img src="{{ review.image.url }}" alt="photo" />
+                    </a>
+                    {% endif %}
+
+                </div>
+            </li>
+            {% endfor %}
+
+        </ul>
+
+        {% else %}
+        <span class="center__message"> 작성된 리뷰가 없습니다.
+            </br>평가를 남겨주세요. </span>
+        {% endif %}
+
+    </div>
+    <!-- Arrow button -->
+    <button class="arrow-up">
+        <i class="fas fa-chevron-circle-up"></i>
+    </button>
+</section>
+
+<!-- popup -->
+<section id="pop-up" class="pop-up__hide">
+    <div class="pop-up__window">
+        <span class="pop-up__context"></span>
+        <div class="btn__container">
+            <button type="button" class="pop-up__btn btn-disagree">아니오</button>
+            <button type="button" class="pop-up__btn btn-agree">네</button>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

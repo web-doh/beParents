@@ -1,0 +1,80 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'mypage/style.css' %}" type="text/css" />
+<script type="module" src="{% static 'mypage/mypages.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+<!-- header -->
+<header id="my-reviews" class="header">
+    <button class="btn back__btn">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <h3>나의 리뷰</h3>
+</header>
+
+<!-- main -->
+<section id="my-reviews-main" class="main">
+
+    {% if reviews %}
+    <ul class="my-reviews__list">
+        {% for review in reviews %}
+        <li class="my-reviews__item">
+            <div class="my-reviews__header">
+                <div class="my-reviews__title">
+                    <a href="{% url 'centers:index' review.center.id %}" class="my-reviews__name">
+                        {{review.center.center_name}}
+                    </a>
+                    <div class="my-reviews__icon">
+                        <a href="{% url 'centers:edit' review.center.id review.id %}?next={{request.path}}">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a class="my-reviews__delete">
+                            <i class="far fa-trash-alt"></i>
+                            <div id="centerId" style="display: none;">{{ review.center.id }}</div>
+                            <div id="reviewId" style="display: none;">{{ review.id }}</div>
+                        </a>
+                    </div>
+                </div>
+
+        
+
+                <div class="my-reviews__info">
+                    <span class="my-reviews__score">★ {{review.score}}</span>
+                    <span class="divider"></span>
+                    <span class="my-reviews__created_at">{{ review.created_at }}</span>
+                </div>
+            </div>
+            <p class="my-reviews__contents">{{review.content|truncatechars:20}}</p>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Arrow button -->
+    <button class="arrow-up">
+        <i class="fas fa-chevron-circle-up"></i>
+    </button>
+
+    {% else %}
+    <span class="center__message">
+        등록한 리뷰가 없습니다.
+        </br> 평가를 남겨주세요.
+    </span>
+    {% endif %}
+</section>
+
+<!-- popup -->
+<section id="pop-up" class="pop-up__hide">
+    <div class="pop-up__window">
+        <span class="pop-up__context"></span>
+        <div class="btn__container">
+            <button type="button" class="pop-up__btn btn-disagree">아니오</button>
+            <button type="button" class="pop-up__btn btn-agree">네</button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

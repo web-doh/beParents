@@ -1,0 +1,58 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'mypage/style.css' %}" type="text/css" />
+<script type="module" src="{% static 'mypage/mypages.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<!-- header -->
+<header id="my-likes" class="header">
+    <button class="btn back__btn">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <h3>찜한 센터</h3>
+</header>
+
+<!-- main -->
+<section id="my-likes-main" class="main">
+
+    {% if likes %}
+    <ul class="my-likes__list">
+        {% for like in likes %}
+        <li class="my-likes__item">
+            <div class="my-likes__title">
+                <a href="{% url 'centers:index' like.center.id %}" class="my-likes__name">
+                    {{like.center.center_name}}
+                </a>
+                <form action="{% url 'centers:like' like.center.id %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="my-likes__bookmark">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="my-likes__location">
+                <span class="my-likes__address">{{ like.center.center_address }}</span>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Arrow button -->
+    <button class="arrow-up">
+        <i class="fas fa-chevron-circle-up"></i>
+    </button>
+
+    {% else %}
+    <span class="center__message">
+        찜한 센터가 없습니다.
+    </span>
+    {% endif %}
+</section>
+
+{% endblock %}

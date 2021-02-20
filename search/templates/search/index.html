@@ -1,0 +1,62 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'search/style.css' %}" type="text/css" />
+<script type="module" src="{% static 'search/main.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- search-bar -->
+<section id="search-bar" class="header">
+    <button type="button" class="btn back__btn">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+    <form action="{% url 'search:center_list' %}" method="GET" enctype="multipart/form-data">
+
+
+        <input class="search-bar__input" placeholder="상담 유형, 위치, 센터명을 검색해보세요" name="query" autocomplete="off"/>
+        <button type="button" class="search-bar__icon cancel__icon inactive">
+            <i class="fas fa-times-circle"></i>
+        </button>
+        <span class="search-bar__icon search__icon">
+            <i class="fa fa-search"></i>
+        </span>
+        </input>
+
+        <input type="hidden" name="userX" />
+        <input type="hidden" name="userY" />
+
+    </form>
+
+</section>
+
+
+
+
+<!-- main  -->
+<section id="search-main" class="main">
+    <h4>추천 검색어</h4>
+    <ul class="hashtags">
+        {% for hashtag in hashtag_top10 %}
+        <li class ="hashtag__item">
+            <form action="{% url 'search:center_list' %}" method="GET" enctype="multipart/form-data">
+                <button type="submit" class= "hashtag__text"> {{ hashtag }} </button>   
+                <input type="hidden" name="query" value= "{{ hashtag|cut:'#' }}" />
+                <input type="hidden" name="userX" />
+                <input type="hidden" name="userY" />
+        
+            </form> 
+        </li>
+        {% endfor %}
+        
+    </ul>
+</section>
+
+
+
+{% endblock %}
+

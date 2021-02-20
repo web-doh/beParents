@@ -1,0 +1,122 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+    <link rel = "stylesheet" href = "{% static 'mypage/style.css' %}" type = "text/css" />
+    <script type="module" src="{% static 'mypage/main.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<!-- 로그인한 상태 -->
+{% if user.is_authenticated %}
+<!-- header -->
+<header id="mypage-name" class="header">
+    <h2>{{ profile.user_realname }}님</h2>
+</header>
+
+<!-- main -->
+<section id="mypage-main">
+    <ul class="mypage__list" id="mypage__records">
+        <li class="mypage__likes">
+            <a href="{% url 'mypage:mylikes' %}" class="mypage__item">
+                <span class="mypage__title">찜한 센터</span>
+                <span class="btn__arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+            </a>
+        </li>
+        <li class="mypage__reviews">
+            <a href="{% url 'mypage:myreviews' %}" class="mypage__item">
+                <span class="mypage__title">나의 후기</span>
+                <span class="btn__arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="mypage__list" id="mypage__accounts">
+        <li class="mypage__likes">
+            <a href="{% url 'mypage:myinfo' %}" class="mypage__item">
+                <span class="mypage__title">개인정보 수정</span>
+                <span class="btn__arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </span>
+            </a>
+        </li>
+        <li class="mypage__logout">
+            <form action="{% url 'accounts:logout' %}" method="POST" id="logout">
+                {% csrf_token %}
+                <button type="button" class="btn__logout">로그아웃</button>
+            </form>
+        </li>
+    </ul>
+</section>
+
+<!-- logout popup -->
+<section id="pop-up" class="pop-up__hide">
+    <div class="pop-up__window">
+        <span class="pop-up__context"></span>
+        <div class="btn__container">
+            <button type="button" class="pop-up__btn btn-disagree">아니오</button>
+            <button type="submit" form="logout" class="pop-up__btn btn-agree">네</button>
+        </div>
+    </div>
+</section>
+
+<!-- 로그인하지 않은 상태 -->
+{% else %}
+
+<!-- header -->
+<header id="mypage-anonymous" class="header">
+    <h2>마이페이지</h2>
+    <a href="{% url 'accounts:login' %}?next={{request.path}}" class="btn__login">로그인</a>
+</header>
+
+<!-- main -->
+<section id="mypage-main">
+    <ul class="mypage__list" id="mypage__records">
+        <li class="mypage__item anonymous">
+            <span class="mypage__title">찜한 센터</span>
+            <span class="btn__arrow">
+                <i class="fas fa-chevron-right"></i>
+            </span>
+        </li>
+        <li class="mypage__item anonymous">
+            <span class="mypage__title">나의 후기</span>
+            <span class="btn__arrow">
+                <i class="fas fa-chevron-right"></i>
+            </span>
+        </li>
+    </ul>
+
+    <ul class="mypage__list" id="mypage__accounts">
+        <li class="mypage__item anonymous">
+            <span class="mypage__title">개인정보 수정</span>
+            <span class="btn__arrow">
+                <i class="fas fa-chevron-right"></i>
+            </span>
+        </li>
+        <li class="mypage__login">
+            <a href="{% url 'accounts:login' %}?next={{request.path}}" class="mypage__title">로그인 / 회원가입</a>
+        </li>
+    </ul>
+</section>
+
+<!-- login popup -->
+<section id="pop-up" class="pop-up__hide">
+    <div class="pop-up__window">
+        <span class="pop-up__context"></span>
+        <div class="btn__container">
+            <button type="button" class="pop-up__btn btn-disagree">아니오</button>
+            <a href="{% url 'accounts:login' %}?next={{request.path}}">
+                <button type="button" class="pop-up__btn btn-agree">예</button>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

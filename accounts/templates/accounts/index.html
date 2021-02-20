@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+
+<!-- header -->
+<header id="inflow__header">
+    <div class="header__logo"></div>
+    <h1 class="header__greeting"> 부모는 처음이라에 <br />오신 것을 환영합니다.</h1>
+</header>
+
+<section id="inflow__link">
+    <!-- accounts link -->
+    <div id="accounts-link">
+        <button type="button" class="btn link__btn" onclick="location.href= `{% url 'accounts:login' %}?next={{request.path}}`"> 로그인 </button>
+        <button type="button" class="btn link__btn" onclick="location.href= `{% url 'accounts:sign_up' %}`">
+            회원가입</button>
+    </div>
+
+    <!-- touring link -->
+    <div id="touring-link">
+        <div class="touring__description">
+            <div class="decoration__line"></div> 나중에 가입하시겠어요? <div class="decoration__line"></div>
+        </div>
+        <button type="button" class="btn link__btn" onclick="location.href= `{% url 'home:index' %}`"> 둘러보기 </button>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+@import 'reset.css';
+@import 'common.css';
+
+
+/* container */
+.container {
+    height: 100vh;
+    width: 100vw;
+    max-width: 768px;
+    min-height: 480px;
+    margin: 0 auto;
+    padding: var(--size-large);
+    background-color: var(--color-white);
+    transform: translateZ(0);
+}
+
+@media (min-height: 768px) and (min-width: 768px) {
+    html {
+        font-size: 21px;
+    }
+
+    .container {
+        padding: var(--font-large);
+        border-radius: 0;
+    }
+}
+
+@media screen and (max-height:568px), (max-width: 360px) {
+    html {
+        font-size: 14px;
+    }
+}

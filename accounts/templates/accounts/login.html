@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+<script src="{% static 'accounts/scripts/login.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- header -->
+<header class="header">
+    <h2>로그인</h2>
+    <a href="javascript:history.back();" class="header__cancel">
+        <i class="fas fa-times"></i>
+    </a>
+</header>
+
+<!-- login -->
+<form method="POST" action="{% url 'accounts:login' %}" id="login">
+    {% csrf_token %}
+
+    <!-- form -->
+    <ul class="form">
+        <li class="form__item">
+            <label for="username" class="form__label">아이디</label>
+            <input type="email" class="form__input" id="username" name="username" placeholder="이메일 주소 입력"
+                autocomplete="off" required />
+        </li>
+
+        <li class="form__item">
+            <label for="password" class="form__label">비밀번호</label>
+            <input type="password" class="form__input" id="password" name="password" minlength="6" placeholder="영문, 숫자 포함 6자리 이상" required />
+        </li>
+
+        {% if error %}
+        <span class="form__error" role="alert">
+            {{ error}}
+        </span>
+        {% endif %}
+        
+        <input type="hidden" name="next" value="{{ next }}">
+    </ul>
+
+</form>
+
+<!-- sign-up link -->
+<div id="sign-up-link">
+    <span>회원이 아니신가요?</span>
+    <a href="{% url 'accounts:sign_up' %}" class="sign-up__description">
+        회원가입
+    </a>
+</div>
+
+<!-- submit-->
+<footer class="submit">
+
+    <button type="submit" class="btn submit__btn" form="login">로그인하기</button>
+    
+</footer>
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% if centers %}
+<ul id="center__parts">
+    {% for center in centers %}
+    <li class="center__item" data-distance = "{{ center.distance }}" data-score = "{{ center.review.0.score__avg|floatformat }}">
+        <div class="center__summary__main">
+            <a href="{% url 'centers:index' center.id %}" class="center__name" target="_blank">{{ center.name }}</a>
+            <div class="center__location">
+                <span class="center__distance">{{ center.distance }}</span>
+                <span class="divider"></span>
+                <span class="center__address">{{ center.address }}</span>
+            </div>
+            
+            <div class="center__review">
+
+                {% if center.review %}
+                <span class="center__average">★ {{ center.review.0.score__avg|floatformat }}</span>  
+
+                {% else %}
+                <span class="center__average">★ 0.0</span> 
+                {% endif %}
+                
+                <span class="divider"></span>
+                <span class="center__counts">리뷰  
+                    {% if center.review %}
+                    <span>{{ center.review.0.score__count }}</span>  
+                    {% else %}
+                    <span>0</span>
+                    {% endif %}</span>
+                    
+            </div>
+        </div> 
+
+        <div class="center__summary__other">
+            <span class="center__type">{{ center.type }}</span>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+
+{% if query %}
+
+{% else %}
+<!-- query가 없으면 검색어가 아니며 센터가 존재하지 않으므로 검색결과 없음-->
+<span class="center__message">
+    검색 결과가 없습니다. 검색어를 입력해주세요.
+</span>
+{% endif %}
+
+{% endif %}
+
+

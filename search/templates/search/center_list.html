@@ -1,0 +1,245 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'search/result_style.css' %}" type="text/css" />
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="module" src="{% static 'search/result.js' %}" defer></script>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- search word -->
+<section id="search-word" class="header">
+    <button type="button" class="btn back__btn">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <p class="search-bar__input">{{ query }}</p>
+
+    <a href="{% url 'search:index' %}" class="search-bar__icon cancel__icon">
+        <i class="fas fa-times-circle"></i>
+    </a>
+</section>
+
+<!-- result list  -->
+<div class="search__result list__container">
+    <div class="list__sort-by">
+        <div class="sort-by__current">
+            <span class="sort-by__method">거리순</span>
+            <span class="sort-by__btn">
+                <i class="fas fa-angle-down"></i>
+            </span>
+        </div>
+        <ul class="sort-by__option inactive">
+            <li class="option__item" id="by-distance">
+                <span class="option__description">거리순</span>
+                <span class="option__check-mark">
+                    <i class="fas fa-check"></i>
+                </span>
+            </li>
+            <li class="option__item" id="by-score">
+                <span class="option__description">평점순</span>
+                <span class="option__check-mark inactive">
+                    <i class="fas fa-check"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+
+
+
+    {% if centers %}
+    <ul class="center__list main">
+        <ul id="center__parts">
+        {% for center in centers %}
+        <li class="center__item" data-distance = "{{ center.distance }}" data-score = "{{ center.review.0.score__avg|floatformat }}">
+            <div class="center__summary__main">
+                <a href="{% url 'centers:index' center.id %}" class="center__name" target="_blank">{{ center.name }}</a>
+                <div class="center__location">
+                    <span class="center__distance">{{ center.distance }}</span>
+                    <span class="divider"></span>
+                    <span class="center__address">{{ center.address }}</span>
+                </div>
+                
+                <div class="center__review">
+
+                    {% if center.review %}
+                    <span class="center__average">★ {{ center.review.0.score__avg|floatformat }}</span>  
+
+                    {% else %}
+                    <span class="center__average">★ 0.0</span> 
+                    {% endif %}
+                    
+                    <span class="divider"></span>
+                    <span class="center__counts">리뷰  
+                        {% if center.review %}
+                        <span>{{ center.review.0.score__count }}</span>  
+                        {% else %}
+                        <span>0</span>
+                        {% endif %}</span>
+                        
+                </div>
+            </div> 
+
+            <div class="center__summary__other">
+                <span class="center__type">{{ center.type }}</span>
+            </div>
+        </li>
+        {% endfor %}
+        </ul>
+
+    
+    {% else %}
+        <!-- 센터 쿼리셋이 존재하지 않을 때 -->
+            {% if query %}
+        <!-- 검색어가 있어 query가 context로 넘어오면 검색결과가 없음 -->
+        <span class="center__message">
+        일치하는 검색 결과가 없습니다.
+        </span>
+            {% else %}
+        <!-- query가 없으면 검색어가 아니며 센터가 존재하지 않으므로 검색결과 없음-->
+        <span class="center__message">
+        검색 결과가 없습니다. 검색어를 입력해주세요.
+        </span>
+            {% endif %}
+
+    {% endif %}
+    
+    <!-- Arrow button -->
+    <button class="arrow-up">
+        <i class="fas fa-chevron-circle-up"></i>
+    </button>
+
+
+
+
+    <div id="center_list_ajax"></div> <!--Ajax 결과물을 추가할 곳-->
+    <input id="page" type="hidden" value="2"> <!--페이지 정보를 입력할 곳-->
+    <input id="userX" type="hidden" value="{{ userX }}"/>
+    <input id="userY" type="hidden" value="{{ userY }}"/>
+    <input id="query" type="hidden" value="{{ query }}"/>
+
+
+    <!--<button id="callmorecenter" type="button" class="btn btn-primary btn-block">Loading...</button> 페이지 스크롤 이벤트가 작동하지 않을 경우 클릭함.-->
+    </ul>
+</div>
+
+
+<script>
+//scroll event
+
+$('#callmorecenter').click(function(){
+    var page = $('#page').val();
+    callMoreCenterAjax(page);
+    $('#page').val(parseInt(page)+1);
+});
+
+$('.center__list').scroll(function(){
+    var scrollHeight = $('.center__list').scrollTop() + $('.center__list').height();
+    var documentHeight = $('.center__item').height() * 10 + $('#center_list_ajax').height()
+    
+    if (scrollHeight + 500 >= documentHeight){
+        callMoreCenterAjax(page);
+    }
+});
+
+const query = $('#query').val();
+const userX = $('#userX').val();
+const userY = $('#userY').val();
+
+var isLoading = false;
+
+function callMoreCenterAjax(page) {
+    if (isLoading) return;
+
+    var page = $('#page').val();
+    isLoading = true;
+    $.ajax( {
+    type : 'GET',
+    url: "{% url 'search:center_list_ajax' %}",
+    data: {
+    'page': page,
+    'query' : query,
+    'userX' : userX,
+    'userY' : userY,
+    
+    },
+    dataType: 'html',
+
+    success: function(data){
+        if (data.length > 10){
+
+        
+        const centerItems = $(data)[0].querySelectorAll('.center__item');
+
+            centerItems && centerItems.forEach(item => {
+            const distanceData = getText(item, '.center__distance');
+            const addressData = getText(item, '.center__address');
+
+            const distance = setDistance(distanceData);
+            const address = setAddress(addressData);
+
+            setText(item, '.center__distance', distance);
+            setText(item, '.center__address', address);
+
+        
+        });
+
+        addMoreCenterAjax(centerItems);
+
+    }
+        else 
+        return false }
+    });
+}
+
+//ajax로 가져온 page별 센터 데이터 붙이기
+function addMoreCenterAjax(data, textStatus, jqXHR) {
+    isLoading = false;
+
+        $('#center_list_ajax').append(data);
+
+        var page = $('#page').val();
+        $('#page').val(parseInt(page)+1);
+}
+
+
+
+// html 태그의 내용 가져오기 
+function getText(parent, selector){
+    const text = parent.querySelector(selector).innerHTML;
+    return text;
+}
+
+// html 태그 안에 내용 넣기
+function setText(parent, selector, text){
+    const tag = parent.querySelector(selector);
+    tag.textContent = text;
+}
+
+// 주소 요약 하기
+function setAddress(address){
+    const longAddress = address.split(' ');
+    const shortAddress = `${longAddress[0]} ${longAddress[1]||''} ${longAddress[2]|| ''} `;
+    return shortAddress;
+}
+
+// 거리 단위 설정 
+function setDistance(distance){
+    if(distance < 1){
+        distance = `${distance * 1000}m`;
+    }else{
+        distance= `${Math.round(distance *10)/10}km`;
+    }
+    return distance;
+}
+
+
+</script>
+
+
+
+{% endblock %}

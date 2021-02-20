@@ -1,0 +1,108 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+
+{% block style %}
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+<link rel="stylesheet" href="{% static 'map/style.css' %}" type="text/css" />
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId={{ naver_key }}"></script>
+<script type="module" src="{% static 'map/main.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+
+<!-- header -->
+<header id="map__header">
+    <button type="button" class="btn map__type__btn">
+        <i class="fas fa-bars"></i>
+        <span class="type__description">목록</span>
+    </button>
+    <p class="map__description">내 주변 아동 심리 센터</p>
+</header>
+
+<section id="map__section">
+    <!-- map type-->
+    <div class="map__container">
+        <div class="map">
+            <div id="map"></div>
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <button type="button" class="btn location-now__btn">
+                    <img src="../../static/map/image/location.png" alt="위치허용" />
+                </button>
+            </form>
+            <button class="btn change__map-center">
+                <i class="fas fa-redo-alt"></i> 현 지도에서 검색하기 
+            </button>
+        </div>
+
+        <!-- center summary -->
+        <div class="center__item inactive" id="center__summary">
+            <div class="center__summary__main">
+                <div class="center__title">
+                    <a class="center__name" target="_blank">{{ center.name }}</a>
+                </div>
+
+                <div class="center__location">
+                    <span class="center__distance"></span>
+                    <span class="divider"></span>
+                    <span class="center__address"></span>
+                </div>
+
+                <div class="center__review">
+                    <span class="center__average">★ 0.0</span>
+                    <span class="divider"></span>
+                    <span class="center__counts">리뷰 0</span>
+                </div>
+            </div>
+
+            <div class="center__summary__other">
+                <span class="center__type"></span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- list type -->
+    <div class="list__container inactive">
+        <div class="list__sort-by">
+            <div class="sort-by__current">
+                <span class="sort-by__method">거리순</span>
+                <span class="sort-by__btn">
+                    <i class="fas fa-angle-down"></i>
+                </span>
+            </div>
+            <ul class="sort-by__option inactive">
+                <li class="option__item" id="by-distance">
+                    <span class="option__description">거리순</span>
+                    <span class="option__check-mark">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </li>
+                <li class="option__item" id="by-score">
+                    <span class="option__description">평점순</span>
+                    <span class="option__check-mark inactive">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        
+        <ul class="center__list main"></ul>
+        
+        <!-- Arrow button -->
+        <button class="arrow-up">
+            <i class="fas fa-chevron-circle-up"></i>
+        </button>
+    </div>
+
+</section>
+
+{% endblock %}

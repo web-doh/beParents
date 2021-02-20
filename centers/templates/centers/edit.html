@@ -1,0 +1,75 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+    <link rel = "stylesheet" href = "{% static 'centers/style.css' %}" type = "text/css" />
+    <script type="module" src="{% static 'centers/reviews.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+
+<header id="review" class="header">
+    <div class="header__left">
+        <button class="back__btn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <h3 class="review__name">{{ center.center_name }}</h3>
+    </div>
+    <button type="button" class="submit__btn" form="review__form">
+            수정
+    </button>
+</header>
+
+<form action="{% url 'centers:update' center.id review.id %}" id="review__form" class="main" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="review__score">
+        <div id="score" style="display: none;">{{ review.score }}</div>
+        <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+        <input type="checkbox" name="score" id="score1" value="1" class="rate__radio" title="1점" />
+        <label for="score1"></label>
+
+        <input type="checkbox" name="score" id="score2" value="2" class="rate__radio" title="2점" />
+        <label for="score2"></label>
+
+        <input type="checkbox" name="score" id="score3" value="3" class="rate__radio" title="3점" />
+        <label for="score3"></label>
+
+        <input type="checkbox" name="score" id="score4" value="4" class="rate__radio" title="4점" />
+        <label for="score4"></label>
+
+        <input type="checkbox" name="score" id="score5" value="5" class="rate__radio" title="5점" />
+        <label for="score5"></label>
+
+        <p class="error__message"></p>
+    </div>
+    <textarea name= "content" placeholder="이 센터의 후기를 들려주세요 (최대 500자)" maxlength="500">{{ review.content }}</textarea>
+    
+    <input type="file" class="review__image" id="image" name="image" accept="image/*"/>
+    <label class="review__image__icon" for= "image">
+        <i class="fas fa-camera"></i>
+        사진 첨부하기 <span>(첨부 파일 변경시 기존 파일은 삭제됩니다)</span>
+    </label>
+    
+    <div id="image__preview">
+        {% if review.image %}
+        <img src="{{ review.image.url }}" class="image__uploaded" />
+        <input type="checkbox" name = "image__delete" class="image__delete" value="delete">
+        {% endif %}
+    </div>
+    
+    <input type="hidden" name="next" value="{{ next }}">
+</form>
+
+
+<!-- popup -->
+<section id="pop-up" class="pop-up__hide">
+    <div class="pop-up__window">
+        <span class="pop-up__context"></span>
+        <div class="btn__container">
+            <button type="button" class="pop-up__btn btn-disagree">아니오</button>
+            <button class="pop-up__btn btn-agree">네</button>
+        </div>
+    </div>
+</section>
+{% endblock %}

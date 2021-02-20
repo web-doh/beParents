@@ -1,0 +1,44 @@
+
+
+{% if near_centers_list %}
+
+    {% for center in near_centers_list %}
+    <li class="center__item" id="{{ center.id }}" data-distance = "{{ center.distance }}" data-score = "{{ center.score.0.score__avg|floatformat }}">
+        <div class="center__summary__main">
+            <div class="center__title">
+                <a href="{% url 'centers:index' center.id %}" class="center__name" target="_blank">{{ center.name }}</a>
+            </div>
+    
+    
+            <div class="center__location">
+                <span class="center__distance">{{ center.distance }}</span>
+                <span class="divider"></span>
+                <span class="center__address">{{ center.address }}</span>
+            </div>
+    
+            <div class="center__review">
+                {% if center.score %}
+                <span class="center__average">★ {{ center.score.0.score__avg|floatformat }}</span>
+                {% else %}
+                <span class="center__average">★ 0.0</span>
+                {% endif %}
+                <span class="divider"></span>
+
+                {% if center.review %}
+                <span class="center__counts">리뷰 {{ center.review.0.score__count }}</span>
+                {% else %}
+                <span class="center__counts">리뷰 0</span>
+                {% endif %}
+            </div>
+        </div>
+    
+        <div class="center__summary__other">
+            <span class="center__type">{{ center.type }}</span>
+        </div>
+    
+        <!-- 센터 좌표 js로 내보내기 -->
+        <div id="centerX" style="display: none;">{{ center.x }}</div>
+        <div id="centerY" style="display: none;">{{ center.y }}</div>
+    </li>
+    {% endfor %}
+{% endif %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+
+<section id="complete">
+    <!-- header -->
+    <header id="complete__header">
+        <div class="header__logo"></div>
+        <h1 class="header__greeting"> {{ profile.user_realname }}님, <br />환영합니다!</h1>
+        <h3 class="header__description">회원가입이 완료되었습니다.</h3>
+    </header>
+
+    <!-- contents -->
+    <ul class="form">
+        <li class="form__item">
+            <span class="form__label">아이디</span>
+            <p class="form__input">{{ user.username }}</p>
+        </li>
+
+        <li class="form__item">
+            <span class="form__label">수신동의</span>
+            <p class="form__input">
+                {% if profile.user_agree_sms %}
+                마케팅 수신동의
+                {% else %}
+                미동의
+                {% endif %}
+            </p>
+        </li>
+    </ul>
+</section>
+
+<!-- submit-->
+<footer class="submit">
+    <button type="button" class="btn submit__btn" onclick="goBack();"> 시작하기 </button>
+
+</footer>
+
+<script>
+
+function goBack(){
+    window.history.go(-2);
+}
+
+</script>
+{% endblock %}
+
+</body>
+
+</html>

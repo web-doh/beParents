@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}" type="text/css" />
+<script src="{% static 'accounts/scripts/accounts.js' %}" defer></script>
+{% endblock %}
+
+
+{% block content %}
+<section id="sign-up">
+
+    <!-- header -->
+    <header class="header">
+        <h2>회원가입</h2>
+        <a href="javascript:history.back();" class="header__cancel">
+            <i class="fas fa-times"></i>
+        </a>
+    </header>
+
+    <!-- sign-up form -->
+    <form method="POST" action="{% url 'accounts:sign_up' %}">
+        {% csrf_token %}
+
+        <!-- 정보 입력 -->
+        <ul class="form">
+            <li class="form__item">
+                <label for="username" class="form__label">아이디</label>
+                <input type="email" class="form__input" id="username" name="username" placeholder="아이디"
+                    data-result="fail" autocomplete="off" required />
+                <button type="button" class="btn__disabled" id= "duplicate-check">중복확인</button>
+            </li>
+            
+            <span class="form__error" id="duplicate_message" role="alert"></span>
+            <span class="form__error" id="username_error" role="alert"></span>
+            <span class="item__description">인증을 위해 수신가능한 이메일을 입력해주세요.</span>
+
+            <li class="form__item">
+                <label for="password" class="form__label">비밀번호</label>
+                <input type="password" class="form__input" id="password" name="password" placeholder="영문, 숫자 포함 6자리 이상" required />
+            </li>
+            <span class="form__error" id="password_error" role="alert"></span>
+
+            <li class="form__item">
+                <label for="password_check" class="form__label">비밀번호</label>
+                <input type="password" class="form__input" id="password_check" name="password_check"
+                    placeholder="비밀번호 확인" data-result="fail" required />
+            </li>
+            <span class="form__error" id= "password_check_error" role="alert"></span>
+            
+
+            <li class="form__item">
+                <label for="user_phone" class="form__label"> 휴대폰 </label>
+                <input type="tel" class="form__input" id="user_phone" name="user_phone" placeholder="'-'를 제외한 숫자만 입력"
+                    minlength="10" maxlength="11" autocomplete="off" required />
+            </li>
+            <span class="form__error" id="user_phone_error" role="alert"></span>
+
+            <li class="form__item">
+                <label for="user_realname" class="form__label"> 이름 </label>
+                <input type="text" class="form__input" id="user_realname" name="user_realname" placeholder="이름 입력"
+                    minlength="2" autocomplete="off" required />
+            </li>
+            <span class="form__error" id="user_realname_error" role="alert"></span>
+        </ul>
+
+        <!-- 이용약관 동의 -->
+        <section id="terms">
+            <div class="terms__header">
+                <span class="terms__title">이용약관 동의</span>
+            </div>
+
+            <ul class="terms__checklist">
+                <li class="checklist__item">
+                    <input type="checkbox" class="checklist__input" id="agree_all">
+                    <label for="agree_all" class="checklist__label">전체 동의하기</label>
+                </li>
+            
+
+                <li class="checklist__item">
+                    <input type="checkbox" class="checklist__input normal" id="must_agree1" name="must_agree1"  required />
+                    <label for="must_agree1" class="checklist__label">서비스 이용약관 <span class="checklist__option">(필수)</span></label>
+                    <span class="checklist__arrow">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </li>
+                <span class="form__error" id="must_agree1_error" role="alert"></span>
+
+                <li class="checklist__item">
+                    <input type="checkbox" class="checklist__input normal" id="must_agree2" name="must_agree2" required />
+                    <label for="must_agree2" class="checklist__label">개인정보 처리방침 <span class="checklist__option">(필수)</span></label>
+                    <span class="checklist__arrow">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </li>
+                <span class="form__error" id="must_agree2_error" role="alert"></span>
+
+                <li class="checklist__item">
+                    <input type="checkbox" class="checklist__input normal" id="user_agree_location" name="user_agree_location"/>
+                    <label for="user_agree_location" class="checklist__label">위치기반 서비스 이용약관 <span class="checklist__option">(선택)</span></label>
+                    <span class="checklist__arrow">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </li>
+
+                <li class="checklist__item">
+                    <input type="checkbox" class="checklist__input normal" id="user_agree_sms" name="user_agree_sms" />
+                    <label for="user_agree_sms" class="checklist__label">마케팅 정보 수신 <span class="checklist__option">(선택)</span></label>
+                    <span class="checklist__arrow">
+                        <i class="fas fa-angle-right"></i>
+                    </span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- submit-->
+        <footer class="submit">
+            <button type="submit" class="btn submit__btn">가입하기</button>
+        </footer>
+    </form>
+</section>
+
+{% endblock %}

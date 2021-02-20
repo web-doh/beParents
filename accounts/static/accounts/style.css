@@ -1,0 +1,369 @@
+@import  '../../../static/style/reset.css';
+@import '../../../static/style/common.css';
+
+/*0. all templates*/
+    /* index & complete 공통  header */
+.header__logo {
+    width: var(--font-big);
+    height: var(--font-big);
+    margin: 4.5vh 0;
+    border-radius: var(--size-small);
+    background-color: var(--color-main);
+    color: var(--color-white);
+}
+
+.header__greeting {
+    line-height: 3.6rem;
+}
+
+    /* login & sign-up 공통 header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 3.2vh;
+}
+
+.header__cancel {
+    font-size: var(--font-medium);
+    color: var(--color-grey);
+}
+
+.header__cancel i:hover {
+    color: var(--color-main);
+    cursor: pointer;
+}
+
+    /* form */
+.form__item {
+    width: 100%;
+    height: 4.5rem;
+    border-bottom: 1px solid var(--color-grey);
+    padding: 0 var(--size-small);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.form__label {
+    width: 21% ;
+    font-size: var(--font-small);
+}
+
+.form__input {
+    font-size: var(--font-regular);
+}
+
+.form__input::placeholder {
+    color: var(--color-dark-grey);
+}
+
+.form__error {
+    color: var(--color-point);
+    display: block;
+}
+
+    /* submit btn */
+.submit {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    padding: var(--size-small) var(--size-regular);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--color-white);
+    z-index: 99;
+    box-shadow: 0 -1px 2px var(--color-shadow);
+}
+
+.btn {
+    width: 100%;
+    height: 100%;
+    font-size: var(--font-regular);
+    border-radius: var(--size-small);
+}
+
+.submit__btn {
+    background-color: var(--color-grey);
+    color: var(--color-white);
+}
+
+.submit__btn:hover {
+    background-color: var(--color-main);
+}
+
+/* 1. index template */
+#inflow__header {
+    padding-top: 20px;
+    height: 42.5%;
+}
+
+#inflow__link {
+    height: 57.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+}
+
+#accounts-link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#accounts-link,
+#touring-link {
+    padding: var(--size-small) var(--size-regular);
+}
+
+.link__btn {
+    height: 52px;
+    border:1px solid var(--color-grey);
+    margin-top: var(--font-large);
+}
+
+.link__btn:first-child {
+    margin-top: 0;
+}
+
+.link__btn:hover {
+    color: var(--color-main);
+    border: 1px solid var(--color-sub);
+}
+
+#touring-link {
+    flex-basis: 12.5%;
+}
+
+.touring__description {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: var(--font-micro);
+    color: var(--color-dark-grey);
+}
+
+.decoration__line {
+    flex-basis: 27.5%;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-grey);
+}
+
+
+/* 2. login template*/
+#login .form {
+    height: 37.5vh;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#login .form__item:nth-child(2) {
+    margin-bottom: var(--size-regular);
+}
+
+#sign-up-link {
+    margin-top: var(--font-regular);
+    text-align: center;
+}
+
+.sign-up__description {
+    margin-left: var(--size-small);
+    font-size: var(--font-small);
+    text-decoration: underline;
+}
+
+.sign-up__description:hover {
+    color: var(--color-main);
+}
+
+
+/* 3. sign-up template*/
+#sign-up {
+    margin-top: var(--size-large);
+    height: calc(100% - 44px);
+    overflow-y: scroll;
+}
+
+#sign-up::-webkit-scrollbar {
+    display:none;
+}
+#sign-up .form__item:first-child {
+    margin-bottom: var(--size-small);
+}
+
+#sign-up .header {
+    margin-bottom: 4.5vh;
+}
+
+#duplicate-check {
+    font-size: var(--font-small);
+    border: 2px solid;
+    border-radius: var(--size-small);
+    padding: 0.4rem 0.5rem;
+    position: absolute;
+    right: 0;
+}
+
+.btn__abled {
+    font-size: var(--font-small);
+    color: var(--color-main);
+    border: 2px solid var(--color-sub);
+    border-radius: var(--size-small);
+    padding: 0.4rem 0.5rem;
+    position: absolute;
+    right: 0;
+}
+
+.btn__disabled {
+    color: var(--color-grey);
+    border-color: var(--color-grey);
+    cursor: default;
+}
+
+.btn__abled:hover {
+    color: var(--color-white);
+    background-color: var(--color-main);
+}
+
+    /* 이용약관 동의 */
+#terms {
+    padding: var(--font-large) 0;
+}
+
+.terms__title {
+    color: var(--color-black);
+}
+
+.checklist__item {
+    position: relative;
+    margin-top: var(--font-medium);
+    line-height: var(--font-medium);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checklist__input {
+    display: none;
+}
+
+.checklist__input 
++ .checklist__label {
+    margin-left: 36px;
+    color: var(--color-black);
+    font-size: var(--font-small);
+    font-weight: var(--weight-light);
+    cursor: pointer;
+}
+
+#agree_all + .checklist__label{
+    font-weight: var(--weight-semi-bold);
+}
+
+.checklist__option {
+    color: var(--color-dark-grey);
+}
+
+.checklist__input 
++ .checklist__label::before {
+    content: '\2713';
+    display: inline-block;
+    text-align: center;
+    width: 21px;
+    height: 21px;
+    line-height: 21px;
+    position: absolute;
+    left: 0;
+    border: 1px solid var(--color-grey);
+    border-radius: 50%;
+    font-size: 18px;
+    color: var(--color-grey);
+}
+
+.checklist__item:last-child {
+    margin-bottom: var(--font-medium);
+}
+
+.checklist__input:checked 
++ .checklist__label::before {
+    color: var(--color-white);
+    background-color: var(--color-main);
+}
+
+#must_agree1_error, 
+#must_agree2_error {
+    margin: .5rem 0;
+}
+
+.checklist__arrow i{
+    font-size: var(--font-regular);
+}
+
+.checklist__arrow i:hover {
+    cursor: pointer;
+    color: var(--color-main);
+}
+
+/* 4. complete template */
+#complete {
+    height: 60%;
+    max-height: 540px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+#complete .form__label {
+    color: var(--color-black);
+    font-weight: var(--weight-regular);
+}
+
+#complete .form__input {
+    color: var(--color-dark-grey);
+}
+
+
+/* media query */
+@media screen and (min-height:768px) and (min-width: 768px) {
+    .submit {
+        height: 84px;
+    }
+
+    /* 1. index template */
+    .link__btn {
+        height: 64px;
+    }
+
+    /* 3. sign-up template*/
+    .checklist__input 
+    + .checklist__label::before {
+        top: 5px;
+    }
+    
+    /* 4. complete template*/
+    #complete {
+        padding: 0;
+        max-height: 100%;
+    }
+}
+
+
+@media screen and (max-height:568px), (max-width: 360px) {
+    .header,
+    #inflow__header {
+        padding-top: 10px;
+    }
+
+    .link__btn {
+        height: 45px;
+        margin-top: var(--font-regular);
+    }
+}

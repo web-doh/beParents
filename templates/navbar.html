@@ -1,0 +1,71 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+    <title>be Parents</title>
+    
+    <link rel = "stylesheet" href = "{% static 'style/navbar.css' %}" type = "text/css" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.1/css/all.css"
+    integrity="sha384-xxzQGERXS00kBmZW/6qxqJPyxW3UR0BPsL4c8ILaIWXva5kFi7TxkIIaMiKtqV1Q" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" defer></script>
+    <script src="/static/scripts/navbar.js" defer></script>
+    {% block style %}
+    {% endblock %}
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            {% block content %}
+            {% endblock %}
+    
+            <!-- nav bar -->
+            <nav class="navbar">
+                <ul class="navbar__menu">
+                    <li class="navbar__menu__item current" id="navbar__home">
+                        <a href="{% url 'home:index' %}">
+                            <i class="fas fa-home"></i>
+                            홈
+                        </a>
+                    </li>
+                    <li class="navbar__menu__item" id="navbar__search">
+                        <a href="{% url 'search:index' %}">
+                            <i class="fas fa-search"></i>
+                            검색
+                        </a>
+                    </li>
+                    <li class="navbar__menu__item" id="navbar__map">
+                        <a href="{% url 'map:index' %}">
+                            <i class="fas fa-map-marked-alt"></i>
+                            지도
+                        </a>
+                    </li>
+                    <li class="navbar__menu__item" id="navbar__mypage">
+                        <a href="{% url 'mypage:index' %}">
+                            <i class="fas fa-user"></i>
+                            마이페이지
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}
+        <script>
+            alert("{{ message.message }}")
+        </script>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </body>
+    
+</html>

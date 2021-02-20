@@ -1,0 +1,98 @@
+:root {
+    /* Color */
+    --color-white: #ffffff;
+    --color-main: #688b69;
+    --color-sub: #b3cd8e;
+    --color-point: #af4448;
+    --color-dark-grey: #555;
+    --color-grey: #aaa;
+    --color-light-grey: #ddd;
+    --color-black: #000000;
+
+    /* shadow & hover background */
+    --color-shadow:rgba(180,180,180, 0.2);
+    --color-hover-back:rgba(240,240,240, 0.2);
+    --color-title-back:rgba(225,225,225,0.2);
+
+
+    /* Font-style */
+    --font-style: 'Noto Sans KR', sans-serif;
+
+    /* Font size */
+    --font-big: 2.25rem; /* 36px */
+    --font-large: 1.6875rem; /* 27px */
+    --font-medium: 1.3125rem; /* 21px */
+    --font-regular: 1.125rem; /* 18px */
+    --font-small: 1rem;  /* 16px */
+    --font-micro: 0.875rem;   /* 14px */
+    --font-tiny: 0.75rem;  /* 12px */
+
+    /* Font-weight */
+    --weight-bold: 700;
+    --weight-semi-bold: 500;
+    --weight-regular: 400;
+    --weight-light:300;
+
+    /* Size (border-radius, padding, margin)*/
+    --size-large: 1rem;    /*16px*/
+    --size-medium: .75rem;   /*12px*/
+    --size-regular: .5rem;   /*8px*/
+    --size-small: .25rem;   /*4px*/
+}
+
+/* body */
+body {
+    background-color: var(--color-main);
+    font-family: var(--font-style);
+} 
+
+/* Typography */
+h1 {
+    font-size: var(--font-big);
+    font-weight: var(--weight-bold);
+    color: var(--color-black);
+}
+
+h2{
+    font-size: var(--font-large);
+    font-weight: var(--weight-semi-bold);
+    color: var(--color-black);
+    margin: .5rem 0;
+}
+
+h3 {
+    font-size: var(--font-medium);
+    font-weight: var(--weight-regular);
+    color: var(--color-black);
+    margin: .5rem 0;
+}
+
+p {
+    font-size: var(--font-regular);
+    font-weight: var(--weight-regular);
+    color: var(--color-black);
+    margin: .25rem 0;
+}
+
+span {
+    font-size: var(--font-small);
+    font-weight: var(--weight-light);
+    color: var(--color-dark-grey);
+    margin: .125rem 0;
+}
+
+input::placeholder,
+textarea::placeholder {
+    font-family: var(--font-style);
+    color: var(--color-grey);
+}
+
+textarea {
+    font-family: var(--font-style);
+    font-size: var(--font-regular);
+    color: var(--color-black);
+}
+
+button {
+    font-family: var(--font-style);
+}

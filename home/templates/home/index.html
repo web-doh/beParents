@@ -1,0 +1,45 @@
+{% extends "navbar.html" %}
+
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'home/style.css' %}" type="text/css" />
+{% endblock %}
+
+
+{% block content %}
+<!-- home -->
+<section id="home">
+    <!-- home - main -->
+    <div class="home__main">
+        <div class="main__logo"></div>
+        <h1 class="main__description">모든 아이들을 위한<br />심리상담센터</h1>
+    </div>
+
+    <!-- home - search -->
+    <a href="{% url 'search:index' %}" class="home__search">
+        <p class="search__placeholder">상담 유형, 위치, 센터명을 검색해보세요</p>
+        <div class="search__icon">
+            <i class="fa fa-search"></i>
+        </div>
+    </a>
+
+    <!-- home - link -->
+    <a class="home__link" href="{% url 'map:index' %}">
+        <div class="link active">
+            <i class="fas fa-shapes active"></i>
+
+            <div class="link__decription active">
+                <h3 class="active">내 주변 센터 찾기</h3>
+                <span class="active">지도에서 내 주변 센터를 확인하세요</span>
+            </div>
+        </div>
+
+        <div class="link__arrow active">
+            <i class="fas fa-angle-right active"></i>
+        </div>
+    </a>
+
+
+</section>
+{% endblock %}
