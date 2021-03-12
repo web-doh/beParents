@@ -48,7 +48,7 @@
 
 ### 3) Deployment
 
-- AWS (현재 사이트 사용 불가 - 추후 업데이트 예정) 
+- AWS (https://www.parents-mentor.com/) 
 
 ## 4. Installation
 ### Server
