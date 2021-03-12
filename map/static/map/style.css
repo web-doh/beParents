@@ -283,7 +283,7 @@ html {
 .arrow-up{
     position: fixed;
     right: var(--font-regular);
-    bottom: calc(var(--font-regular) + 60px);
+    bottom: calc(var(--font-regular) + var(--navbar-medium));
     color: var(--color-grey);
     font-size: var(--font-large);
     padding: 0;
@@ -310,7 +310,7 @@ html {
 
 @media screen and (min-height:768px) and (min-width: 768px) {
     .arrow-up{
-        bottom: calc(var(--font-regular) + 84px);
+        bottom: calc(var(--font-regular) + var(--navbar-large));
     }
 }
 
@@ -325,5 +325,9 @@ html {
 
     .center__name {
         margin-bottom: var(--size-small);
+    }
+
+    .arrow-up{
+        bottom: calc(var(--font-regular) + var(--navbar-small));
     }
 }

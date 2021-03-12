@@ -1,9 +1,14 @@
 @import  '../../static/style/reset.css';
 @import '../../static/style/common.css';
 
+html {
+    width: 100%;
+    overflow: hidden;
+}
+
 /* home  */
 #home {
-    height: calc(100% - 44px);
+    height: calc(100% - var(--navbar-medium));
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -35,7 +40,7 @@
 /* home - search */
 .home__search {
     position: relative;
-    top: -12.5vh;
+    top: -10vh;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -114,7 +119,7 @@
 /* media query */
 @media screen and (min-height:768px) and (min-width: 768px) {
     #home {
-        height: calc(100% - 68px);
+        height: calc(100% - var(--navbar-large));
         padding: var(--font-large);
     }
     
@@ -137,6 +142,7 @@
 
 @media screen and (max-height:568px), (max-width: 360px) {
     #home {
+        height: calc(100% - var(--navbar-small));
         padding-top: 10px;
     }
 
@@ -144,8 +150,4 @@
         line-height: 3rem;
     }
 
-    .home__search {
-        top: -10vh;
-    }
 }
-

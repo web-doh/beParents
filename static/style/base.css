@@ -1,6 +1,9 @@
 @import 'reset.css';
 @import 'common.css';
 
+html {
+    font-size: 14px;
+}
 
 /* container */
 .container {
@@ -16,7 +19,7 @@
 
 @media (min-height: 768px) and (min-width: 768px) {
     html {
-        font-size: 21px;
+        font-size: 16px;
     }
 
     .container {
@@ -27,6 +30,6 @@
 
 @media screen and (max-height:568px), (max-width: 360px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
     }
 }

@@ -39,6 +39,20 @@ h4 {
 
 .header__left {
     display: flex;
+    align-items: center;
+}
+
+.center__name {
+    margin: 0 0;
+}
+
+.center__untact {
+    margin-left: var(--size-regular);
+    padding: var(--size-small);
+    background-color: var(--color-main);
+    border-radius: var(--size-small);
+    color: var(--color-white);
+    font-size: var(--font-micro);
 }
 
 .back__btn {
@@ -75,13 +89,16 @@ h4 {
 }
 
 /* center info */
-.center__info {
+.center__info, .center__added {
     border-bottom: var(--size-medium) solid var(--color-light-grey);
     line-height: 2rem;
 }
 
+
 .center__info,
-.center__review {
+.center__added,
+.center__review,
+.center__realreview {
     padding: var(--size-large);
 }
 
@@ -89,17 +106,25 @@ h4 {
     padding-right: var(--size-small);
 }
 
-.info__description {
-    font-weight: var(--weight-regular);
+#address .info__icon {
+    padding-left: 2px;
 }
 
-#runhours {
+
+.info__description {
+    font-weight: var(--weight-regular);
+    padding-left: var(--size-small);
+}
+
+#address .info__description,
+#special .info__description {
+    padding-left: 5.5px;
+}
+
+#runhours, #price_detail, #homepage, #address, #special {
     display: flex;
 }
 
-#runhours .info__description {
-    padding-left: var(--size-small);
-}
 
 .homepage {
     color: var(--color-main);
@@ -119,13 +144,82 @@ h4 {
     line-height: var(--font-regular);
     padding: var(--size-small) var(--size-medium);
     border-radius: var(--size-small);
-    margin: var(--size-small);
+    margin-right: var(--size-small);
+    margin-bottom: var(--size-small);
 }
 
 .center__hashtag:hover {
     cursor: pointer;
     background-color: var(--color-shadow);
 }
+
+.hashtag__text {
+    font-size: var(--font-regular);
+    padding: 0px 0px;
+    line-height: 0px;
+}
+
+.fa-money-check-alt {
+    font-size: var(--font-small);
+}
+
+.fa-comment-dots,
+.fa-money-check-alt {
+    color : var(--color-sub);
+}
+
+/* center real review */
+
+.center__realreview {
+    border-bottom: var(--size-medium) solid var(--color-light-grey);
+}
+
+.center__realreview__title {
+    font-weight: var(--weight-regular);
+    font-size: var(--font-regular);
+    margin : var(--size-small) 0 var(--size-small);
+}
+
+.center__realreview__text {
+    cursor: pointer;
+    color: var(--color-black);
+
+}
+
+.center__realreview__header {
+    padding-bottom: var(--size-medium);
+    
+}
+
+.center__realreview__text {
+    line-height: var(--font-medium);
+    font-size: var(--font-small);
+}
+
+.center__realreview__date {
+    font-size: var(--font-micro);
+    color : var(--color-dark-grey);
+
+}
+
+.center__realreview__item2 {
+    margin: var(--size-small) 0 var(--size-small);
+
+}
+
+.add__more__btn {
+    width: 100%;
+    text-align: center;
+    padding-top: var(--size-large);
+}
+
+.add__more__text {
+    line-height: 2.4rem;
+    font-size: var(--font-small);
+}
+
+
+
 
 /* center review */
 .center__review__description {
@@ -147,10 +241,12 @@ h4 {
 }
 
 
-.center__review__item {
+.center__review__item, .center__realreview__item {
     padding: var(--size-large) 0;
     border-bottom: 1px solid var(--color-light-grey);
 }
+
+
 
 .item__header {
     display: flex;
@@ -167,7 +263,8 @@ h4 {
     margin: var(--size-small) 0 var(--size-medium);
 }
 
-.item__header span {
+.center__review__profile span,
+.center__review__score {
     font-size: var(--font-micro);
 }
 
@@ -233,24 +330,27 @@ h4 {
     color: var(--color-dark-grey);
 }
 
-.center__review__contents {
+.center__review__contents, .center__realreview__contents {
     display: flex;
     padding: var(--size-regular) 0;
     justify-content: space-between;
+    font-size: var(--font-micro);
 }
 
-.center__review__contents > div {
+.center__review__contents > div,
+.center__realreview__contents > div {
     width: 90%;
 }
 
 .center__review__text {
     line-height: var(--font-medium);
+    font-size: var(--font-small);
 }
 
 
 .btn__fold {
     display: none;
-    font-size: var(--font-tiny);
+    font-size: var(--font-micro);
     padding-left: var(--size-small);
 }
 
@@ -292,7 +392,7 @@ h4 {
 .arrow-up{
     position: fixed;
     right: var(--font-regular);
-    bottom: calc(var(--font-regular) + 60px);
+    bottom: calc(var(--font-regular) + var(--navbar-medium));
     color: var(--color-grey);
     font-size: var(--font-large);
     padding: 0;
@@ -453,7 +553,7 @@ h4 {
 
 @media screen and (min-height:768px) and (min-width: 768px) {
     .arrow-up {
-        bottom: calc(var(--font-regular) + 84px);
+        bottom: calc(var(--font-regular) + var(--navbar-large));
     }
 }
 
@@ -465,4 +565,9 @@ h4 {
     #center__map {
         height: 12.5rem;
     }
+
+    .arrow-up{
+        bottom: calc(var(--font-regular) + var(--navbar-small));
+    }
 }
+

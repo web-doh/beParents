@@ -11,21 +11,20 @@
 
     /* shadow & hover background */
     --color-shadow:rgba(180,180,180, 0.2);
-    --color-hover-back:rgba(240,240,240, 0.2);
-    --color-title-back:rgba(225,225,225,0.2);
+    --color-hover-back:rgba(240,240,240, 0.25);
+    --color-title-back:rgba(225,225,225,0.25);
 
 
     /* Font-style */
     --font-style: 'Noto Sans KR', sans-serif;
 
     /* Font size */
-    --font-big: 2.25rem; /* 36px */
-    --font-large: 1.6875rem; /* 27px */
-    --font-medium: 1.3125rem; /* 21px */
-    --font-regular: 1.125rem; /* 18px */
-    --font-small: 1rem;  /* 16px */
-    --font-micro: 0.875rem;   /* 14px */
-    --font-tiny: 0.75rem;  /* 12px */
+    --font-big: 2.25rem; 
+    --font-large: 1.6875rem; 
+    --font-medium: 1.3125rem; 
+    --font-regular: 1.125rem; 
+    --font-small: 1rem;  
+    --font-micro: 0.875rem;   
 
     /* Font-weight */
     --weight-bold: 700;
@@ -34,10 +33,15 @@
     --weight-light:300;
 
     /* Size (border-radius, padding, margin)*/
-    --size-large: 1rem;    /*16px*/
-    --size-medium: .75rem;   /*12px*/
-    --size-regular: .5rem;   /*8px*/
-    --size-small: .25rem;   /*4px*/
+    --size-large: 1.25rem;   
+    --size-medium: 1rem;  
+    --size-regular: .5rem;   
+    --size-small: .25rem;   
+
+    /* Navbar size */
+    --navbar-small: 48px;
+    --navbar-medium: 56px;
+    --navbar-large: 64px;
 }
 
 /* body */

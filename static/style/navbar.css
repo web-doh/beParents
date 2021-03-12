@@ -1,7 +1,9 @@
+@import "reset.css";
+@import "common.css";
 
-@import 'reset.css';
-@import 'common.css';
-
+html {
+    font-size: 14px;
+}
 
 /* container */
 .container {
@@ -14,20 +16,19 @@
     transform: translateZ(0);
 }
 
-
 /* navbar */
 .navbar {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60px;
+    height: var(--navbar-medium);
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: var(--color-white);
     z-index: 99;
-    box-shadow: 0 -1px 2px var( --color-shadow);
+    box-shadow: 0 -1px 2px var(--color-shadow);
 }
 
 .navbar__menu {
@@ -39,11 +40,11 @@
 .navbar__menu__item {
     text-align: center;
     color: var(--color-grey);
-    font-size: var(--font-tiny);
+    font-size: var(--font-micro);
     transition: all 200ms ease-in-out;
 }
 
-.navbar__menu__item.current{
+.navbar__menu__item.current {
     color: var(--color-main);
 }
 
@@ -58,24 +59,28 @@
     color: var(--color-main);
 }
 
-
 /* media query */
-@media (min-height:768px) and (min-width: 768px) {
+@media only screen and (min-height: 768px) and (min-width: 768px) {
     html {
-        font-size: 21px;
+        font-size: 16px;
     }
 
+    
     .container {
         border-radius: 0;
     }
 
     .navbar {
-        height: 84px;
+        height: var(--navbar-large);
     }
 }
 
-@media screen and (max-height:568px), (max-width: 360px) {
+@media screen and (max-height: 568px), (max-width: 360px) {
     html {
-        font-size: 14px;
+        font-size: 12px;
+    }
+
+    .navbar {
+        height: var(--navbar-small);
     }
 }
