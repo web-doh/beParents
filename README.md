@@ -48,7 +48,7 @@
 
 ### 3) Deployment
 
-- AWS (https://www.parents-mentor.com/) 
+- AWS ~~(https://www.parents-mentor.com/)~~ - 서비스 종료
 
 ## 4. Installation
 ### Server
