@@ -234,11 +234,10 @@ checkAll.addEventListener("click", selectAll);
 // 개별 선택
 function selectOne(e){
     if (e.target === checkAll || e.target.nodeName !== "INPUT" && e.target.nodeName !== "LABEL") return;
-    let is_checked = true;
-
+    
     const checkboxes = document.querySelectorAll(".normal");
     const checked = document.querySelectorAll(".normal:checked");
-    checkAll.checked = (checkboxes.length === checked.length) ? true :false;
+    checkAll.checked = (checkboxes.length === checked.length);
 }
 
 termsAgree.addEventListener("click", selectOne);
